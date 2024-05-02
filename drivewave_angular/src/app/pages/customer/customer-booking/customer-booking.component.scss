@@ -1,0 +1,64 @@
+.container-fluid{
+    padding:20px 0 20px 20px ;
+    background-color:rgb(249, 252, 255);
+    box-shadow: 20px 20px 10px 0px rgba(128,133,138,1);
+
+    border-radius: 2%;
+  
+}
+.vehicle-card{
+    background:whitesmoke; 
+    border-radius: 9px;
+    box-shadow: 0 10px 10px 0 rgba(19, 21, 23, 0.93);
+    width: 700px;
+}
+// .box {
+//     width: 200px; height: 300px;
+//     position: relative;
+//     border: 1px solid #BBB;
+//     background: #EEE;
+//   }
+  .ribbon {
+    position: absolute;
+    right: -5px; top: -5px;
+    z-index: 1;
+    overflow: hidden;
+    width: 75px; height: 75px;
+    text-align: right;
+  }
+  .ribbon span {
+    font-size: 12px;
+    font-weight: bold;
+    color: #FFF;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 20px;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    width: 100px;
+    display: block;
+    background: #3c49f6;
+    background: linear-gradient(#264ddb 0%, #2257d2 100%);
+    box-shadow: 0 3px 6px 1px rgb(16, 0, 0);
+    position: absolute;
+    top: 19px; right: -21px;
+  }
+  .ribbon span::before {
+    content: "";
+    position: absolute; left: 0px; top: 100%;
+    z-index: -1;
+    border-left: 3px solid #79A70A;
+    border-right: 3px solid transparent;
+    border-bottom: 3px solid transparent;
+    border-top: 3px solid #79A70A;
+  }
+  .ribbon span::after {
+    content: "";
+    position: absolute; right: 0px; top: 100%;
+    z-index: -1;
+    border-left: 3px solid transparent;
+    border-right: 3px solid #79A70A;
+    border-bottom: 3px solid transparent;
+    border-top: 3px solid #79A70A;
+  }
+  

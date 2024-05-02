@@ -1,0 +1,33 @@
+
+<mat-drawer-container style="min-height: 90vh;">
+    <mat-drawer #drawer mode="side" opened color="primary">
+
+        
+        <mat-nav-list>
+            <div class="row">
+                <div class="col text-center"><br>
+                    <img class="img-responsive"   style="height:140px; width: 140px; border: 2px solid rgb(21, 21, 21); border-radius: 50%;   box-shadow: 0 5px 5px 0 rgba(84, 84, 83, 0.575);"
+                     src="assets/images/female_user.png">
+                     <br><br>
+                     <h3> <B>Samiksha Dasarwad</B></h3>
+                    <br></div>
+                    
+            </div>
+            <div class="nav-container">
+            <a [routerLink]="'booking'" mat-list-item><span><i class="fa-solid fa-file-circle-plus"></i> </span>booking</a>
+            <a [routerLink]="'customer'" mat-list-item><span><i class="fa-solid fa-users"></i></span>Customer</a>
+            <a [routerLink]="'payment'" mat-list-item><span><i class="fa-solid fa-credit-card"></i></span>Payment </a>
+            <a [routerLink]="'car'"mat-list-item><span><i class="fa-solid fa-car-side"></i></span>car's </a>
+            <a [routerLink]="'setting'"mat-list-item><span><i class="fa-solid fa-gear"></i></span> Setting </a>
+            <a [routerLink]="'help'" mat-list-item><span><i class="fa-solid fa-circle-question"></i></span> Help? </a>
+            <a  mat-list-item (click)="logOut() "><span><i class="fa-solid fa-right-from-bracket"></i></span> Logout </a>
+        </div>
+        </mat-nav-list>
+    </mat-drawer>
+    <button mat-icon-button color="primary" (click)="drawer.toggle()">
+        <mat-icon>double_arrow</mat-icon>
+    </button>
+    
+    <router-outlet></router-outlet>
+</mat-drawer-container>
+

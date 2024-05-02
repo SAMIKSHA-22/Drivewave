@@ -1,0 +1,38 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/dist/css/bootstrap.css";
+html, body { height: 100%; }
+body { 
+    margin: 0; 
+    font-family: Roboto, "Helvetica Neue", sans-serif; 
+    // background: linear-gradient(rgba(0, 0, 0, 0.50), rgba(0, 0, 0, 0.50)),url("assets/bestseller.png") ;
+    // // background: url("assets/bestseller.png");
+    // background-size: conver;
+    // background-attachment: fixed;
+    // background-position: center;
+    // background-repeat: no-repeat;
+}
+
+.float {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+
+.w-100 {
+    width: 100%;
+}
+
+.home-img {
+    height: 50%; 
+    width: 70%;
+    box-shadow: 5px 5px 4px 0px rgba(67, 65, 65, 0.722);
+    transition: transform 0.3s ease;
+}
+
+.home-img:hover {
+    
+    transform: translateY(-8px);
+}

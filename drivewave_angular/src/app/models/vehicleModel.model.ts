@@ -1,0 +1,22 @@
+export interface VehicleModel {
+    name: string,
+    brandName:string,
+    fuelType:string,
+    transmission:string,
+    colorName:string,
+    modelYear:Date,
+    categories:string,
+    rentalPrice:number,
+    description:string,
+    addedDate:Date,
+    updatedDate:Date,
+    noOfGears:number,
+    images:any,
+    id:number,
+    logo:any,
+    discount:number,
+    quantity:number,
+     from:Date,
+     to:Date,
+     
+}

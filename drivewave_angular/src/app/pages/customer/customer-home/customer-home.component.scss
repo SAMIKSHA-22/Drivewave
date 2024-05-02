@@ -1,0 +1,47 @@
+.example-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+
+  mat-drawer {
+    width: 18vw; 
+    background-color:transparent;
+  }
+  
+  .icon-display {
+    font-size: 70px;
+    height: 80px ;
+    width: 80px;
+    justify-content: center;
+    border: solid 2px;
+    border-radius: 15px;
+  }
+  .nav-container a{
+    display: block;
+    text-decoration: none;
+    background-color: #fff;
+    color: #8e0c0c;
+    text-transform: uppercase;
+    padding: 15px 0 15px 10px;
+    margin: 5px 0;
+    width: 240px;
+    letter-spacing: 1.5px;
+    box-shadow: 2px 2px 16px 0px  rgba(0,0,0,0.75);
+    position: relative;
+  }
+  .nav-container a span{
+   
+    width: 70px;
+    height: 100%;
+    line-height: 50px;
+    text-align: center;
+    color: #fff;
+    background: #7aadf0;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  

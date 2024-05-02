@@ -1,0 +1,31 @@
+<mat-drawer-container style="min-height: 90vh;">
+    <mat-drawer #drawer mode="side" opened color="primary">
+        <mat-nav-list>
+            <div class="row">
+                <div class="col text-center"><br>
+                    <img avatar [src]="(user.gender == 'Male') ? 'assets/images/male_user.png' : 'assets/images/female_user.png' " alt=""
+                    style="height:120px; width: 120px; border: 2px solid green; border-radius: 50%;">
+                    <h3>{{user.fullName}}</h3>
+                    <br></div>
+            </div>
+            <div class="nav-container">
+            <a [routerLink]="'available-cars'" mat-list-item><span><i class="fa-solid fa-car-side"></i> </span>Avaliable car's</a>
+  
+            <a [routerLink]="'booking'" mat-list-item><span><i class="fa-solid fa-file-circle-plus"></i> </span>booking</a>
+           
+            <a [routerLink]="'payment'" mat-list-item><span><i class="fa-solid fa-credit-card"></i></span>Payment </a>
+            <!-- <a [routerLink]="'cars'" mat-list-item><span><i class="fa-solid fa-car-side"></i></span>car's </a> -->
+            <a [routerLink]="'Setting'" mat-list-item><span><i class="fa-solid fa-gear"></i></span> Setting </a>
+            <a [routerLink]="'Help'" mat-list-item><span><i class="fa-solid fa-circle-question"></i></span> Help? </a>
+            <a  mat-list-item (click)="logout()"><span><i class="fa-solid fa-right-from-bracket"></i></span> Logout </a>
+        </div>
+        </mat-nav-list>
+    </mat-drawer>
+    <button mat-icon-button color="primary" (click)="drawer.toggle()">
+        <mat-icon>double_arrow</mat-icon>
+    </button> 
+
+    
+<router-outlet></router-outlet>
+</mat-drawer-container>
+

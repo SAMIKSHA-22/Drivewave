@@ -1,0 +1,19 @@
+.backgroundimg{
+    background: linear-gradient(rgba(0, 0, 0, 0.50), rgba(0, 0, 0, 0.50)),url(/assets/login.png) ;
+    // background: url("assets/bestseller.png");
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 93vh;
+    
+}
+mat-card {
+    margin-left: 10%;
+    background: #690517;
+box-shadow: 0 8px 8px 0 rgba(0, 1, 15, 0.93);
+backdrop-filter: blur( 9px );
+-webkit-backdrop-filter: blur( 9px );
+border-radius: 10px;
+border: 1px solid rgba( 255, 255, 255, 0.18 );
+}

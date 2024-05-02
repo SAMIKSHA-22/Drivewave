@@ -1,0 +1,423 @@
+<div class="container-fluid">
+  <div class="row">
+    <ng-container *ngFor="let vehicle of cars">
+      <div class="col-md-2 col-lg-4 col-sm-1">
+        <mat-card class="my-2 mx-2 vehicle-card">
+          
+          <mat-card-header>
+            
+            <mat-card-title class="text-primary">{{
+              vehicle.name
+            }}</mat-card-title>
+            <mat-card-subtitle
+              ><b>{{ vehicle.brandName }}</b></mat-card-subtitle
+            >
+
+            <!-- <mat-card-subtitle >{{vehicle.description}}</mat-card-subtitle> -->
+          </mat-card-header>
+          <ng-container *ngIf="vehicle.images != null">
+            <img
+              mat-card-image
+              [src]="vehicle.images[0].imageName"
+              alt=""
+              style="max-height: 220px"
+            />
+          </ng-container>
+          <mat-card-content>
+            <p><b>
+              Description: <span>{{ vehicle.description }}</span>
+           </b> </p>
+            <p><b>
+              Rental Price: <span>{{ vehicle.rentalPrice }}</span>
+           </b> </p>
+          </mat-card-content>
+          <mat-card-title class="btn">
+            <div class="row text-center">
+              <div class="col">
+                <button
+                  mat-raised-button
+                  type="submit"
+                  color="accent"
+                  (click)="openUpdateDialog(vehicle)"
+                >
+                  Edit
+                </button>
+                &nbsp;&nbsp;
+
+                <button
+                  mat-raised-button
+                  type="button"
+                  color="primary"
+                  (click)="deleteCar(vehicle.id)"
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+          </mat-card-title>
+          <!-- {{ vehicle | json }} -->
+         
+        </mat-card>
+      </div>
+      
+    </ng-container>
+  </div>
+  <div class="float">
+    <button
+      type="button"
+      mat-icon-button
+      color="primary"
+      (click)="openAddDialog()"
+    >
+      <mat-icon>add </mat-icon>
+    </button>
+  </div>
+</div>
+
+<ng-template #addCar>
+  <mat-dialog-content>
+    <div class="container-fluid2">
+      <div class="row">
+        <h1 class="text-center">Post Car's</h1>
+      </div>
+      <mat-card>
+        <mat-card-content>
+          <div >
+            <div class="row">
+              <!-- reference -->
+              <form #carForm="ngForm" (ngSubmit)="postCars(carForm.value)">
+                <div class="row">
+                  <div class="col">
+                    <mat-form-field class="example-full-width">
+                      <mat-label>Name</mat-label>
+                      <input
+                        name="name"
+                        l
+                        type="text"
+                        (ngModel)="(car.name)"
+                        matInput
+                        placeholder="Ex. abc"
+                      />
+                    </mat-form-field>
+                  </div>
+                  <div class="col">
+                    <mat-form-field class="example-full-width">
+                      <mat-label>brandName</mat-label>
+                      <input
+                        name="brandName"
+                        type="text"
+                        (ngModel)="(car.brandName)"
+                        matInput
+                        placeholder="Ex. abc"
+                      />
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <mat-form-field>
+                      <mat-label>fuelType</mat-label>
+                      <mat-select (ngModel)="(car.fuelType)" name="fuelType">
+                        <mat-option>Clear</mat-option>
+                        <mat-option value="Petrol">Petrol</mat-option>
+                        <mat-option value="CNG">CNG</mat-option>
+                        <mat-option value="Electric">Electric</mat-option>
+                        <mat-option value="Diesel">Diesel</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class="col">
+                    <mat-form-field>
+                      <mat-label>Transmission</mat-label>
+                      <mat-select
+                        name="transmission"
+                        (ngModel)="(car.transmission)"
+                      >
+                        <mat-option>Clear</mat-option>
+                        <mat-option value="manual">Manual</mat-option>
+                        <mat-option value="automatic">Automatic</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <mat-form-field>
+                      <mat-label>Select a color</mat-label>
+                      <mat-select name="colorName" (ngModel)="(car.colorName)">
+                        <ng-container *ngFor="let c of color">
+                          <mat-option [value]="c">{{ c }}</mat-option>
+                        </ng-container>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class="col">
+                    <mat-form-field class="example-full-width">
+                      <mat-label>Model year</mat-label>
+                      <input
+                        name="modelYear"
+                        type="text"
+                        (ngModel)="(car.modelYear)"
+                        matInput
+                        placeholder="Ex. abc"
+                      />
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <mat-form-field>
+                      <mat-label>Categories</mat-label>
+                      <mat-select
+                        name="categories"
+                        (ngModel)="(car.categories)"
+                      >
+                        <ng-container *ngFor="let c of categories">
+                          <mat-option [value]="c">{{ c }}</mat-option>
+                        </ng-container>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class="col">
+                    <mat-form-field class="example-full-width">
+                      <mat-label>Rental Price /day</mat-label>
+                      <input
+                        name="rentalPrice"
+                        type="text"
+                        (ngModel)="(car.rentalPrice)"
+                        matInput
+                        placeholder="Ex. abc"
+                      />
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col">
+                    <mat-form-field>
+                      <mat-label>No of Gears</mat-label>
+                      <mat-select
+                        name="no of gears"
+                        (ngModel)="(car.noOfGears)"
+                      >
+                        <ng-container *ngFor="let g of gear">
+                          <mat-option [value]="g">{{ g }}</mat-option>
+                        </ng-container>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class="col" style="text-align: center; margin-top: 12px">
+                    <mat-slide-toggle>isEnable</mat-slide-toggle>
+                    <!-- <mat-form-field class="example-full-width">
+                        <mat-label>isEnable</mat-label>
+                        <input
+                          name="isEnable"
+                          type="text"
+                          matInput
+                          placeholder="Ex. abc"
+                        />
+                       
+                      </mat-form-field> -->
+                  </div>
+                </div>
+                <div class="row">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Description</mat-label>
+                    <textarea
+                      name="description"
+                      matInput
+                      (ngModel)="(car.noOfGears)"
+                      placeholder="Enter description"
+                    ></textarea>
+                  </mat-form-field>
+                </div>
+
+                <div class="row">
+                  <div class="col text-center">
+                    <button mat-raised-button type="submit" color="primary">
+                      POST
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </mat-dialog-content>
+</ng-template>
+
+<ng-template #updateCar>
+<mat-dialog-content>
+  <div class="container ">
+    <div class="row">
+      <h1 class="text-center">Update Car's</h1>
+    </div>
+    <mat-card>
+      <mat-card-content>
+        <div class="contanier-car">
+          <div class="row">
+            <!-- reference -->
+            <form #carUpdateForm="ngForm" (ngSubmit)="updateCars(carUpdateForm.value)">
+
+              <div class="row">
+                <div class="col">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Name</mat-label>
+                    <input
+                      name="name"
+                      type="text"
+                      [(ngModel)]="car.name"
+                      matInput
+                      placeholder="Ex. abc"
+                    />
+                  </mat-form-field>
+                </div>
+                <div class="col">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>brandName</mat-label>
+                    <input
+                      name="brandName"
+                      type="text"
+                      [(ngModel)]="car.brandName"
+                      matInput
+                      placeholder="Ex. abc"
+                    />
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <mat-form-field>
+                    <mat-label>fuelType</mat-label>
+                    <mat-select [(ngModel)]="car.fuelType" name="fuelType">
+                      <mat-option>Clear</mat-option>
+                      <mat-option value="Petrol">Petrol</mat-option>
+                      <mat-option value="CNG">CNG</mat-option>
+                      <mat-option value="Electric">Electric</mat-option>
+                      <mat-option value="Diesel">Diesel</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col">
+                  <mat-form-field>
+                    <mat-label>Transmission</mat-label>
+                    <mat-select
+                      name="transmission"
+                      [(ngModel)]="car.transmission"
+                    >
+                      <mat-option>Clear</mat-option>
+                      <mat-option value="manual">Manual</mat-option>
+                      <mat-option value="automatic">Automatic</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <mat-form-field>
+                    <mat-label>Select a color</mat-label>
+                    <mat-select name="colorName"  [(ngModel)]="car.colorName">
+                      <ng-container *ngFor="let c of color">
+                        <mat-option [value]="c">{{ c }}</mat-option>
+                      </ng-container>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Model year</mat-label>
+                    <input
+                      name="modelYear"
+                      type="text"
+                      [(ngModel)]="car.modelYear"
+                      matInput
+                      placeholder="Ex. abc"
+                    />
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <mat-form-field>
+                    <mat-label>Categories</mat-label>
+                    <mat-select
+                      name="categories"
+                     [(ngModel)]="car.categories"
+                    >
+                      <ng-container *ngFor="let c of categories">
+                        <mat-option [value]="c">{{ c }}</mat-option>
+                      </ng-container>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Rental Price /day</mat-label>
+                    <input
+                      name="rentalPrice"
+                      type="text"
+                     [(ngModel)]="car.rentalPrice"
+                      matInput
+                      placeholder="Ex. abc"
+                    />
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col">
+                  <mat-form-field>
+                    <mat-label>No of Gears</mat-label>
+                    <mat-select
+                      name="noOfGears"
+                       [(ngModel)]="car.noOfGears"
+                    >
+                      <ng-container *ngFor="let g of gear">
+                        <mat-option [value]="g">{{ g }}</mat-option>
+                      </ng-container>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col" style="text-align: center; margin-top: 12px">
+                  <mat-slide-toggle>isEnable</mat-slide-toggle>
+                  <!-- <mat-form-field class="example-full-width">
+                      <mat-label>isEnable</mat-label>
+                      <input
+                        name="isEnable"
+                        type="text"
+                        matInput
+                        placeholder="Ex. abc"
+                      />
+                     
+                    </mat-form-field> -->
+                </div>
+              </div>
+              <div class="row">
+                <mat-form-field class="example-full-width">
+                  <mat-label>Description</mat-label>
+                  <textarea
+                    name="description"
+                    matInput
+                    [(ngModel)]="car.description"
+                    placeholder="Enter description"
+                  ></textarea>
+                </mat-form-field>
+              </div>
+
+              <div class="row">
+                <div class="col text-center">
+                  <button mat-raised-button type="update" color="primary">
+                    <mat-icon>update</mat-icon>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</mat-dialog-content>
+</ng-template>

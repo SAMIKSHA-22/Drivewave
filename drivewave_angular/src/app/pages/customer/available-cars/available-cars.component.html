@@ -1,0 +1,219 @@
+<div class="container-fluid">
+  <div class="row">
+    <ng-container *ngFor="let vehicle of cars">
+      <div class="col-md-2 col-lg-4 col-sm-1">
+        <mat-card class="my-2 mx-2 vehicle-card">
+          <mat-card-header>
+            <mat-card-title class="text-primary">{{
+              vehicle.name
+            }}</mat-card-title
+            ><br />
+            <mat-card-subtitle
+              ><b>{{ vehicle.brandName }}</b></mat-card-subtitle
+            >
+          </mat-card-header>
+          <ng-container *ngIf="vehicle.images != null">
+            <img
+              mat-card-image
+              [src]="vehicle.images[0].imageName"
+              alt=""
+              style="max-height: 220px"
+            />
+          </ng-container>
+          <mat-card-content>
+            <p>
+              <b>
+                Description: <span>{{ vehicle.description }}</span>
+              </b>
+            </p>
+            <p>
+              <b>
+                RENTAL PRICE: <span>{{ vehicle.rentalPrice }}</span>
+              </b>
+            </p>
+          </mat-card-content>
+          <div class="row my-3">
+            <div class="col text-center">
+              <button
+                mat-raised-button
+                (click)="openBookingDialog(vehicle)"
+                color="primary"
+              >
+                Book now
+              </button>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+    </ng-container>
+  </div>
+</div>
+
+<ng-template #bookingDialog>
+  <div class="container-fluid overflow-scroll p-3">
+    <div class="row">
+      <div class="col">
+        <mat-card class="my-2 mx-1">
+          <div class="ribbon"><span>Offer 25%</span></div>
+          <div class="container-book">
+            <div class="row">
+              <div class="col-7">
+                <ng-container *ngIf="car.images != null">
+                  <div class="car-image">
+                    <img
+                      mat-card-image
+                      [src]="car.images[0].imageName"
+                      alt=""
+                      style="height: 300px; width: 460px"
+                      mat-card-sm-image
+                    />
+                  </div>
+                </ng-container>
+              </div>
+              <div class="col">
+                <mat-card-header>
+                  <mat-card-title class="text-primary">{{
+                    car.name
+                  }}</mat-card-title>
+                  <mat-card-subtitle
+                    ><b>{{ car.brandName }}</b></mat-card-subtitle
+                  >
+                </mat-card-header>
+                <mat-card-content>
+                  <p>
+                    <b>
+                      Description: <span>{{ car.description }}</span>
+                    </b>
+                  </p>
+                  <p>
+                    <b>
+                      Rental Price: <span>{{ car.rentalPrice }}</span>
+                    </b>
+                  </p>
+                  <div class="row">
+                    <form action="">
+                      <mat-form-field class="example-form-field">
+                        <mat-label>Enter a date range</mat-label>
+                        <mat-date-range-input [rangePicker]="rangePicker">
+                          <input
+                            matStartDate
+                            name="rentFrom"
+                            [(ngModel)]="rentFrom"
+                            placeholder="Start date"
+                          />
+                          <input
+                            matEndDate
+                            name="rentTo"
+                            [(ngModel)]="rentTo"
+                            placeholder="End date"
+                          />
+                        </mat-date-range-input>
+                        <!-- <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint> -->
+                        <mat-datepicker-toggle
+                          matIconSuffix
+                          [for]="rangePicker"
+                        ></mat-datepicker-toggle>
+                        <mat-date-range-picker #rangePicker>
+                          <mat-date-range-picker-actions>
+                            <button mat-button matDateRangePickerCancel>
+                              Cancel
+                            </button>
+                            <button
+                              mat-raised-button
+                              color="primary"
+                              matDateRangePickerApply
+                              (click)="getBookingDate()"
+                            >
+                              Apply
+                            </button>
+                          </mat-date-range-picker-actions>
+                        </mat-date-range-picker>
+                      </mat-form-field>
+                    </form>
+                  </div>
+                </mat-card-content>
+                <div class="row my-1">
+                  <div class="col text-center">
+                    <p>Total rental days: {{ Days }}</p>
+                    <p>Total rental price: {{ calculatedAmount }}</p>
+                    <h4>
+                      <strong>You save: {{ offerPrice }}</strong>
+                    </h4>
+                    <!-- //payment btn -->
+                    <button mat-raised-button (click)="openPaymentDialog(payment)" color="primary"
+                    *ngIf="calculatedAmount > 0"> Payment </button>
+
+                    <button mat-raised-button class="mx-3"  (click)="bookRide()"   *ngIf="showConfirm" color="accent"
+                    > Confirm </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #paymentDialog>
+  <div class="container-fluid p-3">
+    <div class="mat-card">
+      <form #paymentForm="ngForm" (ngSubmit)="getPay(paymentForm.value)" >
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="w-100">
+              <mat-label>Deposit </mat-label>
+              <mat-select ngModel name="deposit">
+                <mat-option value="5000">5000/-</mat-option>
+                <mat-option value="7000">7000/-</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="w-100">
+              <mat-label>Advance Payment </mat-label> 
+              <mat-select ngModel name="advancePayment">
+                <mat-option [value]="calculatedAmount * (40 / 100)">
+                  {{ calculatedAmount * (40 / 100) + " (40%)" }}</mat-option
+                >
+                <mat-option [value]="calculatedAmount * (70 / 100)">{{
+                  calculatedAmount * (70 / 100) + " (70%)"
+                }}</mat-option>
+                <mat-option [value]="calculatedAmount">{{
+                  calculatedAmount + " (100%)"
+                }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="w-100">
+              <mat-label>Mode of payment</mat-label>
+              <mat-select (ngModel)="(car.payment)" name="paymentMethod">
+                <mat-option value="cash">Cash</mat-option>
+                <mat-option value="card">Card</mat-option>
+                <mat-option value="online">Online mode</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-md-6 text-center mt-3 d-grid gap-2">
+            <button type="submit" (click)="showConfirm = true" mat-flat-button mat-dialog-close 
+            color="primary">Pay</button>
+          </div>
+          <div class="col-md-6 text-center mt-3 d-grid gap-2">
+            <button
+              mat-flat-button type="button" mat-dialog-close
+              color="warn" > Cancel </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>
+<!-- <router-outlet></router-outlet> -->

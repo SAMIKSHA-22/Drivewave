@@ -1,0 +1,32 @@
+<div class="container-fluid">
+  <div class="row">
+      <ng-container *ngFor="let booking of Bookings">
+          <div class="col-lg-4 col-md-3 col-sm-1">
+              <mat-card>
+                  <mat-card-header>
+                      <!-- <img mat-card-avatar [src]="(booking.gender == 'Male') ? 'assets/images/male_user.png' : 'assets/images/female_user.png' " alt=""> -->
+                     
+                      <mat-card-title>{{booking.fromDate | date:('dd/MM/yyyy')}}</mat-card-title>
+                      <mat-card-subtitle>{{booking.toDate | date:('dd/MM/yyy')}}</mat-card-subtitle>
+                      <mat-card-subtitle>{{booking.status}}</mat-card-subtitle>
+                  </mat-card-header>
+                  <mat-card-content>
+                    <div class="row">
+                      <ng-container *ngFor="let vehicle of booking.vehicleModels">
+                        <div class="col">
+                          <mat-card >
+                            <mat-card-header>
+                              <img [src]="(vehicle.images[0].imageName) " style="height: 80%; width: 80%;">
+                              <mat-card-title>{{vehicle.name + ' ['+vehicle.brandName+']'}}</mat-card-title>
+                              <mat-card-subtitle>{{vehicle.modelYear}}</mat-card-subtitle>
+                            </mat-card-header>
+                          </mat-card>
+                        </div>
+                      </ng-container>
+                    </div>
+                  </mat-card-content>
+              </mat-card>
+          </div>
+      </ng-container>
+  </div>
+</div>

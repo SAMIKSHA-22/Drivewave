@@ -1,0 +1,20 @@
+     <mat-toolbar class="nav" >
+      <img src="assets/images/logo.png" style="height: 60px;width: 80px;">
+
+  <span class="text-white">Drivewave</span>
+  <div class="example-spacer justify-content-center">
+    <div class=  "input-group mx-4"  style="max-width: 30%;">
+      <input type="search" class="form-control" placeholder="Search..." [(ngModel)]="car">
+      <span class="input-group-text">
+        <mat-icon>search</mat-icon>
+      </span>
+    </div>
+  
+  </div>
+ 
+  <button mat-flat-button  [routerLink]="'home'" >Home</button>&nbsp;
+  <button mat-flat-button [routerLink]="'quickbooking'">QuickBooking</button>&nbsp;
+  <button mat-flat-button  [routerLink]="'contactus'">ContactUs</button>&nbsp;
+  <button mat-flat-button  [routerLink]="'signup'">SignUp</button>
+
+</mat-toolbar>
