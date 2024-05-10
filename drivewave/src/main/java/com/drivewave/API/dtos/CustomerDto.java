@@ -32,7 +32,9 @@ public class CustomerDto {
     private boolean isAccountNonExpired;
     private boolean isAccountNonLocked;
     private boolean isCredentialsNonExpired;
+    @JsonIgnore
     private List<BookingDto> bookings;
+    @JsonIgnore
     private List<PaymentDto> payments;
 
 }

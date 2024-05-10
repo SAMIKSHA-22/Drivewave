@@ -15,7 +15,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class BookingDtoDetails implements Serializable {
+public class BookingDtoDetails {
     private int id;
     private Date fromDate;
     private Date toDate;
@@ -26,9 +26,9 @@ public class BookingDtoDetails implements Serializable {
     private Date modifiedDate;
     @JsonIgnore
     private CustomerDto customer;
-    @JsonIgnore
+    // @JsonIgnore
     private List<VehicleModelDto> vehicleModels;
-    @JsonIgnore
+    // @JsonIgnore
     private List<PaymentDto> payments;
 
 }

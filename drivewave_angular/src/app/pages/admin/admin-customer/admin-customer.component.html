@@ -2,7 +2,7 @@
     <div class="row">
         <ng-container *ngFor="let customer of customers">
             <div class="col-lg-4 col-md-3 col-sm-1">
-                <mat-card>
+                <mat-card class="my-2 mx-1 admin-card">
                     <mat-card-header>
                         <img mat-card-avatar [src]="(customer.gender == 'Male') ? 'assets/images/male_user.png' : 'assets/images/female_user.png' " alt="">
                         <mat-card-title>{{customer.fullName}}</mat-card-title>

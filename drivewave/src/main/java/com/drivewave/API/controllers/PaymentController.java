@@ -1,7 +1,12 @@
 package com.drivewave.API.controllers;
 
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
+import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -13,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.drivewave.API.dtos.PaymentDto;
 import com.drivewave.API.entities.Customer;
 import com.drivewave.API.entities.Payment;
 import com.drivewave.API.services.CustomerService;
@@ -26,6 +32,10 @@ public class PaymentController {
     PaymentService paymentService;
     @Autowired
     CustomerService customerService;
+    @Autowired
+    ModelMapper modelMapper;
+
+    Logger LOGGER = LoggerFactory.getLogger(PaymentController.class);
 
     @PostMapping("/add")
     public ResponseEntity<?> addPayment(@RequestBody Payment payment) {
@@ -46,6 +56,26 @@ public class PaymentController {
             return ResponseEntity.ok("Successfully deleted");
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/getAllPayments")
+    public ResponseEntity<?> getAllPayment() {
+        // List<BookingDtoDetails> BookingDtoDetailsList = new ArrayList<>();
+        List<PaymentDto> paymentDtos = new LinkedList<PaymentDto>();
+        try {
+            List<Payment> payments = this.paymentService.getAllPayment();
+
+            if (payments.size() > 0) {
+                for (Payment payment : payments) {
+                    paymentDtos.add(modelMapper.map(payment, PaymentDto.class));
+                }
+            }
+            return ResponseEntity.ok(paymentDtos);
+        } catch (Exception e) {
+            this.LOGGER.error("{}", e.getMessage());
+            return ResponseEntity.internalServerError().body(e.getMessage());
+
         }
     }
 

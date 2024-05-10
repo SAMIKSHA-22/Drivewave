@@ -45,6 +45,7 @@ export class  AvailableCarsComponent implements OnInit {
   };
   showConfirm:boolean = false;
   rentFrom:any = new Date;
+  amount:any;
   rentTo:any = new Date;
   Days:any;
   offerPrice:number = 0;
@@ -106,7 +107,9 @@ this.calculatedAmount = this.calculatePrice(this.Days,this.car.rentalPrice,25);
 }
 
  getPay(form:any) {
+  console.log(form)
   this.payment = form;
+  this.payment.amount = this.amount;
  }
 
  CalculateDays(){
@@ -121,6 +124,7 @@ this.calculatedAmount = this.calculatePrice(this.Days,this.car.rentalPrice,25);
   discount = discount?? 0;
   var price = numOfDays * amount;
   this.offerPrice = amount * (discount/100);
+  this.amount = price - this.offerPrice
   return price - this.offerPrice;
  }
 

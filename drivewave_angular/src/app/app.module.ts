@@ -4,6 +4,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import {MatIconModule} from '@angular/material/icon';
+import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
@@ -80,7 +81,7 @@ import { ContactusComponent } from './contactus/contactus.component';
     MatDatepickerModule,
     BrowserModule,
    MatTableModule,
-    
+   MatFormFieldModule,
     MatSlideToggleModule,
     MatListModule,
     MatSidenavModule,

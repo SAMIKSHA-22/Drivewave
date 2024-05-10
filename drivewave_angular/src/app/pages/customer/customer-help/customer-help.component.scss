@@ -1,7 +1,43 @@
-.example-card {
-    max-width: 50%;
-    max-height: 15%;
+h2 {
+  margin-left: 20px;
+
+}
+
+  
+.container {
+    width: 100vw;
+    height: 100vh;
+    background-color:#fffefe;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     
   }
+
+  .mat-card-content {
+    position: absolute;
+    height: 50%;
+    width: 58%;
+    background-image: linear-gradient(to right,whitesmoke , #fa94f0);
+   }
+
+  .about {
+    float: right;
+  //   margin-top: 5px;
+    height: 365px;
+    width: 350px;
+  //   margin-right: 20px;
+   
+  }
+
+  .outline {
+    margin-left: 20px;
+   
+  }
+
+ button {
+  margin-top: 10px;
+  margin-left: 20%;
+ }
   
   

@@ -10,6 +10,16 @@ import { LoginService } from 'src/app/services/login.service';
   styleUrls: ['./customer-setting.component.scss']
 })
 export class CustomerSettingComponent  implements OnInit{
+  formData = {
+    name: '',
+    password: ''
+  };
+
+  submitted: boolean = false;
+
+  onSubmit(){
+    this.submitted = true;
+  }
   customer:any;
   user:any;
   constructor(
@@ -42,9 +52,7 @@ export class CustomerSettingComponent  implements OnInit{
     }); 
   }
 
-  updateProfile(){
-    
-  }
+  
   
   }
 

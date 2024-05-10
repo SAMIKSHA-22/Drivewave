@@ -3,6 +3,7 @@ package com.drivewave.API.controllers;
 import java.util.Date;
 import java.util.List;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -49,78 +50,89 @@ public class BookingController {
 
     // @PostMapping("/add")
     // public ResponseEntity<?> addbooking(@RequestBody BookingDto booking) {
-    //     List<Payment> _payments = new ArrayList<Payment>();
-    //     try {
-    //         Booking _booking = new Booking();
-    //         // _booking = modelMapper.map(booking, Booking.class);
-    //         _booking.setBookingDate(new Date());
+    // List<Payment> _payments = new ArrayList<Payment>();
+    // try {
+    // Booking _booking = new Booking();
+    // // _booking = modelMapper.map(booking, Booking.class);
+    // _booking.setBookingDate(new Date());
 
-    //         // var pay = modelMapper.map(booking.getPayments(), Payment.class);
-    //         // pay.setCustomer(modelMapper.map(booking.getCustomer(), Customer.class));
-    //         // _payments.add(pay);
-    //         _booking.setPayments(_payments);
+    // // var pay = modelMapper.map(booking.getPayments(), Payment.class);
+    // // pay.setCustomer(modelMapper.map(booking.getCustomer(), Customer.class));
+    // // _payments.add(pay);
+    // _booking.setPayments(_payments);
 
-    //         List<VehicleModel> _vehicleModels = new ArrayList<VehicleModel>();
-    //         // var _vehicle = modelMapper.map(booking.getVehicleModels(), VehicleModel.class);
-    //         // _vehicleModels.add(_vehicle);
-    //         _booking.setVehicleModels(_vehicleModels);
+    // List<VehicleModel> _vehicleModels = new ArrayList<VehicleModel>();
+    // // var _vehicle = modelMapper.map(booking.getVehicleModels(),
+    // VehicleModel.class);
+    // // _vehicleModels.add(_vehicle);
+    // _booking.setVehicleModels(_vehicleModels);
 
-    //         _booking.setCustomer(modelMapper.map(booking.getCustomer(), Customer.class));
-    //         _booking.setFromDate(booking.getFromDate());
-    //         _booking.setToDate(booking.getToDate());
-    //         _booking.setEnable(false);
-    //         _booking.setDays(booking.getDays());
-    //         // _booking.setStatus("Pending");
-    //         _booking.setStatus(booking.getStatus());
-    //         var booked = bookingService.createBooking(_booking);
-    //         System.out.println(booked);
+    // _booking.setCustomer(modelMapper.map(booking.getCustomer(), Customer.class));
+    // _booking.setFromDate(booking.getFromDate());
+    // _booking.setToDate(booking.getToDate());
+    // _booking.setEnable(false);
+    // _booking.setDays(booking.getDays());
+    // // _booking.setStatus("Pending");
+    // _booking.setStatus(booking.getStatus());
+    // var booked = bookingService.createBooking(_booking);
+    // System.out.println(booked);
 
-    //         return ResponseEntity.ok("Ok");
-    //     } catch (Exception e) {
-    //         return ResponseEntity.internalServerError().body(e.getMessage());
-    //     }
+    // return ResponseEntity.ok("Ok");
+    // } catch (Exception e) {
+    // return ResponseEntity.internalServerError().body(e.getMessage());
+    // }
     // }
 
     @PostMapping("/add")
-    public ResponseEntity<?> addbooking(@RequestBody HashMap<String, Object>
-    booking) {
-    try {
-    Booking _booking = new Booking();
-    var vehicles = new ArrayList<VehicleModel>(); 
-    var payments = new ArrayList<Payment>(); 
+    public ResponseEntity<?> addbooking(@RequestBody HashMap<String, Object> booking) {
+        try {
+            Booking _booking = new Booking();
+            var vehicles = new ArrayList<VehicleModel>();
+            var payments = new ArrayList<Payment>();
 
-    for (String key : booking.keySet()) {
-    System.out.println(key);
-    System.out.println(booking.get(key));
-    if (key == "customer") {
-        _booking.setCustomer(modelMapper.map(booking.get(key), Customer.class));
-    } if (key == "vehicleModels") {
-        vehicles.add(modelMapper.map(booking.get(key),VehicleModel.class));
-        _booking.setVehicleModels(vehicles);
-    } if (key == "payments") {
-        payments.add(modelMapper.map(booking.get(key), Payment.class));
-        _booking.setPayments(payments);
-    } if (key == "fromDate") {
-        Date date = modelMapper.map(booking.get(key),Date.class);
-        _booking.setFromDate(date);
-    } if (key == "toDate") {
-        Date date = modelMapper.map(booking.get(key),Date.class);
-        _booking.setToDate(date);
-    } if (key == "status") {
-        _booking.setStatus(booking.get(key).toString());
-    } if (key == "days") {
-        _booking.setDays(Integer.parseInt(booking.get(key).toString()));
-    }
-    _booking.setEnable(false);
-    _booking.setBookingDate(new Date()); 
-    
-    }
-    System.out.println(booking.toString());
-    var _booked = this.bookingService.createBooking(_booking);
-    return ResponseEntity.ok("Ok");
-    } catch (Exception e) {
-    return ResponseEntity.internalServerError().body(e.getMessage());
-    }
+            for (String key : booking.keySet()) {
+                System.out.println(key);
+                System.out.println(booking.get(key));
+                if (key == "customer") {
+                    _booking.setCustomer(modelMapper.map(booking.get(key), Customer.class));
+                }
+                if (key == "vehicleModels") {
+                    vehicles.add(modelMapper.map(booking.get(key), VehicleModel.class));
+                    _booking.setVehicleModels(vehicles);
+                }
+                if (key == "payments") {
+                    var payment = modelMapper.map(booking.get(key), Payment.class);
+                    payment.setPaymentDate(new Date());
+                    payment.setStatus("Pending");
+                    payment.setCustomer(modelMapper.map(booking.get("customer"), Customer.class));
+                    payments.add(payment);
+                    _booking.setPayments(payments);
+
+                }
+                if (key == "fromDate") {
+                    Date date = modelMapper.map(booking.get(key), Date.class);
+                    _booking.setFromDate(date);
+                }
+                if (key == "toDate") {
+                    Date date = modelMapper.map(booking.get(key), Date.class);
+                    _booking.setToDate(date);
+                }
+                if (key == "status") {
+                    _booking.setStatus(booking.get(key).toString());
+                }
+                if (key == "days") {
+                    _booking.setDays(Integer.parseInt(booking.get(key).toString()));
+                }
+                _booking.setEnable(false);
+                _booking.setBookingDate(new Date());
+
+            }
+            System.out.println(booking.toString());
+            var _booked = this.bookingService.createBooking(_booking);
+            return ResponseEntity.ok("Ok");
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
     }
 
     @GetMapping("/{id}")
@@ -133,6 +145,24 @@ public class BookingController {
         }
     }
 
+    @GetMapping("/getAllBookings")
+    public ResponseEntity<?> getAllBooking() {
+        List<BookingDtoDetails> bookingDtos = new LinkedList<BookingDtoDetails>();
+        try {
+            List<Booking> bookings = this.bookingService.getAllBookings();
+            if (bookings.size() > 0) {
+                for (Booking booking : bookings) {
+                    bookingDtos.add(modelMapper.map(booking, BookingDtoDetails.class));
+                }
+            }
+            return ResponseEntity.ok(bookingDtos);
+
+        } catch (Exception e) {
+            this.LOGGER.error("{}", e.getMessage());
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
+    }
+
     @PutMapping("/update")
     public ResponseEntity<?> updateBooking(@RequestBody Booking booking) {
 
@@ -141,6 +171,7 @@ public class BookingController {
             var _booking = this.bookingService.createBooking(booking);
             return ResponseEntity.ok(_booking);
         } catch (Exception e) {
+
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
     }

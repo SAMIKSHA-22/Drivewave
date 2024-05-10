@@ -21,6 +21,8 @@ export class BookingService {
      getBookingByCustomer(customerId:any) {
         return this._http.get(`${apiUrl}/booking/customer/${customerId}`);
      }
-
+     getAllBookings(){
+      return this._http.get(`${apiUrl}/booking/getAllBookings`);
+     }
      
 }

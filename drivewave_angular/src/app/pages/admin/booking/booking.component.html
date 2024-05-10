@@ -1,1 +1,79 @@
-<p>booking works!</p>
+<div class="container-fluid">
+    <div class="row">
+        <ng-container *ngFor="let booking of Bookings">
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <mat-card class="my-2 mx-1 admin-card">
+                  <ng-container *ngFor="let payment of booking.payments">
+                    <mat-card-header>
+                          <img mat-card-avatar [src]="(payment.customer.gender == 'Male') ? 'assets/images/male_user.png' : 'assets/images/female_user.png' " alt="">
+                          <mat-card-title class="text-uppercase ml-3">{{payment.customer.fullName}}</mat-card-title>
+                          <mat-card-subtitle mat-card-subtitle>{{payment.customer.mobileNo}}</mat-card-subtitle>
+                       
+                        <!-- <mat-card-title>{{booking.fromDate | date:('dd/MM/yyyy')}}</mat-card-title>
+                        <mat-card-subtitle>{{booking.toDate | date:('dd/MM/yyy')}}</mat-card-subtitle>
+                        <mat-card-subtitle>{{booking.status}}</mat-card-subtitle> -->
+                    </mat-card-header>
+                  </ng-container>
+                    
+                    <mat-card-content>
+                      <div class="row">
+                        <ng-container *ngFor="let vehicle of booking.vehicleModels">
+                          <div class="row" mat-card-title>
+                            {{vehicle.name + ' ['+vehicle.brandName+']'}}
+                            <span class="ml-3">{{vehicle.modelYear}}</span>
+                          </div>
+                          <div class="row">
+                            <div class="col text-center">
+                              <img [src]="(vehicle.images[0].imageName) " style="height: 70%; width: 70%;">
+                            </div>
+                          </div>
+                          <!-- <div class="col">
+                            <mat-card >
+                              <mat-card-header>
+                                <img [src]="(vehicle.images[0].imageName) " style="height: 80%; width: 80%;">
+                                <mat-card-title>{{vehicle.name + ' ['+vehicle.brandName+']'}}</mat-card-title>
+                                <mat-card-subtitle>{{vehicle.modelYear}}</mat-card-subtitle>
+
+                              </mat-card-header>
+                            </mat-card>
+                          </div> -->
+                        </ng-container>
+                      </div>
+                      <ng-container *ngFor="let payment of booking.payments ">
+                        <!-- <mat-card>
+                          <mat-card-content class="mt-3">
+                            <div class="row">
+                              <div class="col">
+                                <img avatar [src]="(payment.customer.gender == 'Male') ? 'assets/images/male_user.png' : 'assets/images/female_user.png' " alt=""
+                    style="height:40px; width: 40px; border: 2px solid green; border-radius: 50%;">
+                    <span class="ml-3" style="margin-left: 15px;"><b>{{payment.customer.fullName}}</b></span>
+                              </div>
+                            </div>
+                          </mat-card-content>
+                        </mat-card> -->
+                        <div class="row mt-3" *ngIf="payment.status.toLowerCase() === 'pending'">
+                          <div class="col d-grid gap-2">
+                            <button mat-raised-button color="primary">Collect &nbsp;&nbsp; &#8377;
+                              <span>{{ (payment.amount - payment.advancePayment) + payment.deposit }}</span></button>
+                          </div>
+                          <div class="col d-grid gap-2">
+                            <button mat-raised-button color="primary">Approve</button>
+                          </div>
+                        </div>
+                      </ng-container>
+                      <!-- <ng-container *ngIf="booking.status.toLowerCase() == 'pending'">
+                        <div class="row mt-2" >
+                          <div class="col text-center">
+                            <button mat-raised-button color="primary">Approve</button>
+                          </div>
+                        </div>
+                      </ng-container> -->
+                     
+                      
+                    </mat-card-content>
+
+                </mat-card>
+            </div>
+        </ng-container>
+    </div>
+  </div>

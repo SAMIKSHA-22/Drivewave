@@ -13,7 +13,10 @@ export class PaymentCustomerService {
     private Routes:ActivatedRoute
   ) { }
   getPaymentByCustomer( customerId:any){
-    return this._http.get(`${apiUrl}/customer/${customerId}`)  ;
+    return this._http.get(`${apiUrl}/payment/customer/${customerId}`)  ;
 
+  }
+  getAllPayment(){
+    return this._http.get(`${apiUrl}/payment/getAllPayments`);
   }
 }
